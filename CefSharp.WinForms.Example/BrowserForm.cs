@@ -701,5 +701,21 @@ namespace CefSharp.WinForms.Example
         {
             get { return memoryStream.ToArray(); }
         }
+        private Dictionary<ulong, MemoryStreamResponseFilter> responseDictionary = new Dictionary<ulong, MemoryStreamResponseFilter>();
+        public IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response)
+        {
+            var dataFilter = new MemoryStreamResponseFilter();
+            responseDictionary.Add(request.Identifier, dataFilter);
+            return dataFilter;
+        }
+        public void OnResourceLoadComplete(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
+        {
+            MemoryStreamResponseFilter filter;
+            if (responseDictionary.TryGetValue(request.Identifier, out filter))
+            {
+                var data = filter.Data; //This returns a byte[]
+                                        //File.WriteAllBytes("c:/save/path", data);
+            }
+        }
     }
 }
