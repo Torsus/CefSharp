@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -13,6 +14,7 @@ using System.Windows.Forms;
 using CefSharp.Example;
 using CefSharp.Example.Callback;
 using CefSharp.Example.Handlers;
+using CefSharp.Handler;
 using CefSharp.WinForms.Host;
 
 namespace CefSharp.WinForms.Example
@@ -625,6 +627,30 @@ namespace CefSharp.WinForms.Example
                 // UseShellExecute is false by default on .NET Core.
                 UseShellExecute = true
             });
+        }
+    }
+    class HeadersProcessingRequestHandler : RequestHandler
+    {
+#pragma warning disable IDE1006 // Naming Styles
+        readonly Func<NameValueCollection, bool> _headersProcessingFunc;
+#pragma warning restore IDE1006 // Naming Styles
+        public HeadersProcessingRequestHandler(Func<NameValueCollection, bool> headersProcessingFunc) => _headersProcessingFunc = headersProcessingFunc;
+        protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling) => new HeadersProcessingResourceRequestHandler(_headersProcessingFunc);
+    }
+    class HeadersProcessingResourceRequestHandler : ResourceRequestHandler
+    {
+#pragma warning disable IDE1006 // Naming Styles
+        readonly Func<NameValueCollection, bool> _headersProcessingFunc;
+#pragma warning restore IDE1006 // Naming Styles
+        public HeadersProcessingResourceRequestHandler(Func<NameValueCollection, bool> headersProcessingFunc) => _headersProcessingFunc = headersProcessingFunc;
+
+        protected override bool OnResourceResponse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response)
+        {
+            if (_headersProcessingFunc != null)
+            {
+                return _headersProcessingFunc(response.Headers);
+            }
+            return false;
         }
     }
 }
