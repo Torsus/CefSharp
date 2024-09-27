@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -204,6 +205,25 @@ namespace CefSharp.WinForms.Example
             base.Dispose(disposing);
         }
 
+        public void Navigate(IWebBrowser browser, string url, byte[] postDataBytes, string contentType)
+        {
+            IFrame frame = browser.GetMainFrame();
+            IRequest request = frame.CreateRequest();
+
+            request.Url = url;
+            request.Method = "POST";
+
+            request.InitializePostData();
+            var element = request.PostData.CreatePostDataElement();
+            element.Bytes = postDataBytes;
+            request.PostData.AddElement(element);
+
+            NameValueCollection headers = new NameValueCollection();
+            headers.Add("Content-Type", contentType);
+            request.Headers = headers;
+
+            frame.LoadRequest(request);
+        }
         private void OnBrowserMouseClick(object sender, MouseEventArgs e)
         {
             MessageBox.Show("Mouse Clicked" + e.X + ";" + e.Y + ";" + e.Button);
