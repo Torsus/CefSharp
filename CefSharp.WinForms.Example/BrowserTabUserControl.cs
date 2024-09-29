@@ -223,7 +223,6 @@ namespace CefSharp.WinForms.Example
             NameValueCollection headers = new NameValueCollection();
             headers.Add("Content-Type", contentType);
             request.Headers = headers;
-
             frame.LoadRequest(request);
         }
         private void OnBrowserMouseClick(object sender, MouseEventArgs e)
