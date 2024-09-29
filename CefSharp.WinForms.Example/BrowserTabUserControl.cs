@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net.Mime;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp.Example;
@@ -205,7 +207,7 @@ namespace CefSharp.WinForms.Example
             base.Dispose(disposing);
         }
 
-        public void Navigate(IWebBrowser browser, string url, byte[] postDataBytes, string contentType)
+        public void Navigate(IWinFormsChromiumWebBrowser browser, string url, byte[] postDataBytes, string contentType)
         {
             IFrame frame = browser.GetMainFrame();
             IRequest request = frame.CreateRequest();
@@ -613,6 +615,19 @@ namespace CefSharp.WinForms.Example
             {
                 return Browser.GetBrowserHost().HasDevTools;
             });
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+         //   IWebBrowser browser1 = null;           
+            string postData = "{\"gameEngineBetObjectId\":65665,\"selection\":{\"matchAScores\":{\"home\":0,\"away\":0},\"matchBScores\":{\"home\":0,\"away\":0},\"matchCScores\":{\"home\":0,\"away\":1}}}";
+            System.Text.Encoding encoding = System.Text.Encoding.UTF8;
+            byte[] bytes = encoding.GetBytes(postData);
+            Navigate(Browser, "api.norsk-tipping.no/PoolGamesSportInfo/v1/api/oddsbomben/odds/search", bytes, "application/json");
+
+
+
+
         }
     }
 }

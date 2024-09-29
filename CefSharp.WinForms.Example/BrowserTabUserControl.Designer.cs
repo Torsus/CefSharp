@@ -29,6 +29,7 @@ namespace CefSharp.WinForms.Example
             this.goButton = new System.Windows.Forms.ToolStripButton();
             this.browserSplitContainer = new System.Windows.Forms.SplitContainer();
             this.browserPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.toolStrip2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.browserSplitContainer)).BeginInit();
@@ -118,7 +119,7 @@ namespace CefSharp.WinForms.Example
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.Size = new System.Drawing.Size(730, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1030, 25);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Layout += new System.Windows.Forms.LayoutEventHandler(this.HandleToolStripLayout);
@@ -170,7 +171,7 @@ namespace CefSharp.WinForms.Example
             // 
             this.browserSplitContainer.Panel1.Controls.Add(this.browserPanel);
             this.browserSplitContainer.Panel2Collapsed = true;
-            this.browserSplitContainer.Size = new System.Drawing.Size(730, 439);
+            this.browserSplitContainer.Size = new System.Drawing.Size(1030, 439);
             this.browserSplitContainer.SplitterDistance = 481;
             this.browserSplitContainer.TabIndex = 2;
             // 
@@ -179,18 +180,29 @@ namespace CefSharp.WinForms.Example
             this.browserPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserPanel.Location = new System.Drawing.Point(0, 0);
             this.browserPanel.Name = "browserPanel";
-            this.browserPanel.Size = new System.Drawing.Size(730, 439);
+            this.browserPanel.Size = new System.Drawing.Size(1030, 439);
             this.browserPanel.TabIndex = 3;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(681, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Init";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // BrowserTabUserControl
             // 
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.browserSplitContainer);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.outputLabel);
             this.Controls.Add(this.toolStrip2);
             this.Name = "BrowserTabUserControl";
-            this.Size = new System.Drawing.Size(730, 490);
+            this.Size = new System.Drawing.Size(1030, 490);
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -220,5 +232,6 @@ namespace CefSharp.WinForms.Example
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.SplitContainer browserSplitContainer;
         private System.Windows.Forms.Panel browserPanel;
+        private System.Windows.Forms.Button button1;
     }
 }
