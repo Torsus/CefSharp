@@ -216,7 +216,8 @@ namespace CefSharp.WinForms.Example
             request.Method = "POST";
 
             request.InitializePostData();
-            var element = request.PostData.CreatePostDataElement();
+            var postData = request.PostData;
+            var element = postData.CreatePostDataElement();
             element.Bytes = postDataBytes;
             request.PostData.AddElement(element);
 
