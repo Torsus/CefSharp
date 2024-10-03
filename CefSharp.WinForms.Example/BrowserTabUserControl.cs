@@ -221,8 +221,11 @@ namespace CefSharp.WinForms.Example
             element.Bytes = postDataBytes;
             request.PostData.AddElement(element);
 
-            NameValueCollection headers = new NameValueCollection();
-            headers.Add("Content-Type", contentType);
+            var headers = new NameValueCollection
+            {
+                {" Content-Type",contentType}
+            };
+         //   headers.Add("Content-Type", contentType);
             request.Headers = headers;
             frame.LoadRequest(request);
         }
@@ -621,8 +624,8 @@ namespace CefSharp.WinForms.Example
         {
          //   IWebBrowser browser1 = null;           
             string postData = "{\"gameEngineBetObjectId\":65665,\"selection\":{\"matchAScores\":{\"home\":0,\"away\":0},\"matchBScores\":{\"home\":0,\"away\":0},\"matchCScores\":{\"home\":0,\"away\":1}}}";
-            System.Text.Encoding encoding = System.Text.Encoding.UTF8;
-            byte[] bytes = encoding.GetBytes(postData);
+            //    System.Text.Encoding encoding = System.Text.Encoding.UTF8;
+                byte[] bytes = System.Text.Encoding.ASCII.GetBytes(postData);
             Navigate(Browser, "api.norsk-tipping.no/PoolGamesSportInfo/v1/api/oddsbomben/odds/search", bytes, "application/json");
 
 
