@@ -210,7 +210,7 @@ namespace CefSharp.WinForms.Example
         public void Navigate(IWinFormsChromiumWebBrowser browser, string url, byte[] postDataBytes, string contentType)
         {
             IFrame frame = browser.GetMainFrame();
-            IRequest request = frame.CreateRequest();
+            var request = frame.CreateRequest();
 
             request.Url = url;
             request.Method = "POST";
