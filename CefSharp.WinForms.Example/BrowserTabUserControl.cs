@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp.Example;
@@ -625,7 +626,8 @@ namespace CefSharp.WinForms.Example
          //   IWebBrowser browser1 = null;           
             string postData = "{\"gameEngineBetObjectId\":65665,\"selection\":{\"matchAScores\":{\"home\":0,\"away\":0},\"matchBScores\":{\"home\":0,\"away\":0},\"matchCScores\":{\"home\":0,\"away\":1}}}";
             //    System.Text.Encoding encoding = System.Text.Encoding.UTF8;
-                byte[] bytes = System.Text.Encoding.ASCII.GetBytes(postData);
+              byte[] bytes = System.Text.Encoding.ASCII.GetBytes(postData);
+          //  byte[] bytes = encoding.GetBytes(postData);
             Navigate(Browser, "api.norsk-tipping.no/PoolGamesSportInfo/v1/api/oddsbomben/odds/search", bytes, "application/json");
 
 
